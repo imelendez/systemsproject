@@ -21,14 +21,14 @@
  void loadfilename();
  void directory();
  void help();
- void kill(int flag);
+ int kill(int flag);
 
 int main()
 {
 	char input[80];
 	printf("Welcome!\n "); 
-	int continue_flag=1;
-	while(continue_flag==1){
+	int continue_flag=1;// To check if exit is requested form user
+	while(continue_flag==1){ // will continue to run commands until user inputs 'exit'
 	printf("Please enter a command:\n ");
 		printf(">>");
 		fgets(input, 80, stdin);
@@ -41,8 +41,8 @@ int main()
    This function takes a line and breaks it into words.
    The orginal line is in the char array str, the first word
    will go into the char array c, the second into p1, and the
-   the third into p2.  If there are no words, the corresponding
-   char arrays are empty.  At the end, n contains the number of
+   the third into p2.   
+   At the end, n contains the number of
    words read.
 */
 void breakUp(char a[3][20],char *str,int *n)
@@ -108,8 +108,7 @@ void checkinput(char *inputhere, int *flag)
  char *helpcompare="help";
  char *exitcompare="exit";
  char *dircompare="directory";
- char a[3][20]={{'\0'}};;// array to store tokes from strin as c,p1,p2
- //char command[10],param1[10],param2[10];
+ char a[3][20]={{'\0'}};;// empty array to store tokes from strin as c,p1,p2
  char *c,*p1,*p2;
  int length, n;
  
@@ -144,7 +143,7 @@ void checkinput(char *inputhere, int *flag)
 		else if (strcmp(dircompare, c) == 0)
 		directory();
 		else if (strcmp(exitcompare, c) == 0)
-		kill(*temp);
+		{*flag=kill(*temp);}
 		else
 		{
 		printf ("COMMAND NOT RECOGNIZED OR NO INPUT FROM USER (1)");
@@ -177,6 +176,7 @@ void checkinput(char *inputhere, int *flag)
 	 printf("I don't understand your input, try again\n");
 	 printf("Type help for more options\n");
 	}
+
 }
 void loadfilename()
 {
@@ -214,14 +214,10 @@ void directory()
 {
  system("ls");
 }
-void kill(int flag)
+int kill(int flag)
 {
- system("exit");
- system("quit");
- system("end");
- printf("exit\n");
  printf("Good bye\n");
- flag=0;
- //
+ return 0;
+ 
 }
 
